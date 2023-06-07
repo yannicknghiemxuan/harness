@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+watch -n 5 kubectl get all -n "$1" -o wide

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if dig www.irishgalaxy.com | grep 192.168.178.73 >/dev/null 2>&1; then
+    target=cygnus
+    targetport=22
+else
+    target=www.irishgalaxy.com
+    targetport=8081
+fi
+echo "type exit to close the tunnel"
+ssh -p "$targetport" "$target" -L 8080:ryokan:8080

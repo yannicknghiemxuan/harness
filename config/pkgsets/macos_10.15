@@ -1,0 +1,26 @@
+# aptitude
+pkg_cli="bash zsh tmux emacs vim tree dialog pstree gsed gawk shellcheck watch"
+pkg_dev="yamllint"
+pkg_k8s="kubectl kustomize helm"
+pkg_latex="mactex-no-gui"
+pkg_arch="p7zip"
+pkg_system="htop iftop coreutils tag"
+pkg_net="elinks wget curl wireshark nmap ipv6calc rsync"
+pkg_imagetool="exiftool graphicsmagick"
+pkg_srccontrol="git"
+pkg_crypto="pass gpg"
+pkg_vid_enc="ffmpeg"
+
+
+# pre-install commands
+pre_install_cmd()
+{
+   echo ""
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   echo ""
+}

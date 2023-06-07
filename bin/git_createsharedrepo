@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+group=staff
+repo=$1
+
+git init --bare --shared=group "$repo"
+sudo chgrp -R "$group" "$repo"
+sudo chmod -R g+rw "$repo"
+sudo find "$repo" -type d -exec chmod g+s {} \;

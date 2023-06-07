@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#set -x
+# Yannick NGHIEM-XUAN
+# creation    : 17/05/2018   
+#
+# version / description:
+scriptver=20_05_2018
+scriptdesc="opens an ssh tunnel from the server to the host for remote access from the server"
+
+port=$(( ( RANDOM % 999 )  + 7000 ))
+
+echo "random port selected for the door: $port"
+ssh -p 8081 www.irishgalaxy.com -R $port:localhost:22

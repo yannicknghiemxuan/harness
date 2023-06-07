@@ -1,0 +1,2 @@
+quay.io/coreos/kube-state-metrics:v1.9.7@kube-state-metrics:active
+quay.io/coreos/prometheus-operator:v0.38.1@prometheus-operator-multi-arch:v0.38.1

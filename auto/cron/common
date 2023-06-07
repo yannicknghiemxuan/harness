@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+cat <<EOF
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# SCRIPTS FOR THE HARNESS == BEGIN ==
+# keeps /etc/hosts up to date
+#2 * * * * root $AUTOROOT/harness/auto/updatehosts > $AUTOROOT/log/auto/updatehosts.log 2>&1
+# automatically updates the repos
+#50  * * * * root $AUTOROOT/harness/auto/updaterepos > $AUTOROOT/log/auto/updaterepos.log 2>&1
+# checks for hardware issues
+0 0,3,6,9,12,15,18,21 * * * root $AUTOROOT/harness/monitoring/check_hw_failures.sh > $AUTOROOT/log/auto/check_hw_failures.log 2>&1
+# SCRIPTS FOR THE HARNESS == END ==
+EOF

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+find /home/linuxbrew/ -type d -exec chmod a+rx {} \;
+find /home/linuxbrew/ -type f -exec chmod a+rx {} \;

@@ -1,0 +1,165 @@
+#source host:rsync source path:target host:target port:rsync target path
+######################################################
+# atlas -> atlas storage array
+######################################################
+# missing: file systems from gozer
+#atlas:/galaxy/project/proj_01/:atlas:22:/z1p0/backup/project/proj_01
+atlas:/galaxy/project/theproj/:atlas:22:/z1p0/backup/project/theproj
+atlas:/galaxy/password/:atlas:22:/z1p0/backup/password
+atlas:/galaxy/photo_gallery/:atlas:22:/z1p0/backup/photo_gallery
+atlas:/galaxy/voyage/:atlas:22:/z1p0/backup/voyage
+atlas:/galaxy/profiles/mirella/:atlas:22:/z1p0/backup/profiles/mirella
+atlas:/galaxy/profiles/yannick/:atlas:22:/z1p0/backup/profiles/yannick
+atlas:/galaxy/archives_galaxy/:atlas:22:/z1p0/backup/archives_galaxy
+atlas:/galaxy/books/:atlas:22:/z1p0/backup/books
+atlas:/galaxy/voiture/:atlas:22:/z1p0/backup/voiture
+atlas:/galaxy/build/:atlas:22:/z1p0/backup/volans/build
+atlas:/galaxy/consoles/atari/:atlas:22:/z1p0/consoles/atari
+atlas:/galaxy/consoles/mame/:atlas:22:/z1p0/consoles/mame
+atlas:/galaxy/consoles/neogeo/:atlas:22:/z1p0/consoles/neogeo
+atlas:/galaxy/consoles/nintendo/ds/:atlas:22:/z1p0/consoles/nintendo/ds
+atlas:/galaxy/consoles/nintendo/gb/:atlas:22:/z1p0/consoles/nintendo/gb
+atlas:/galaxy/consoles/nintendo/gba/:atlas:22:/z1p0/consoles/nintendo/gba
+atlas:/galaxy/consoles/nintendo/gbc/:atlas:22:/z1p0/consoles/nintendo/gbc
+atlas:/galaxy/consoles/nintendo/n64/:atlas:22:/z1p0/consoles/nintendo/n64
+atlas:/galaxy/consoles/nintendo/nes/:atlas:22:/z1p0/consoles/nintendo/nes
+atlas:/galaxy/consoles/nintendo/snes/:atlas:22:/z1p0/consoles/nintendo/snes
+atlas:/galaxy/consoles/sega/dreamcast/:atlas:22:/z1p0/consoles/sega/dreamcast
+atlas:/galaxy/consoles/sega/mastersystem/:atlas:22:/z1p0/consoles/sega/mastersystem
+atlas:/galaxy/consoles/sega/megadrive/:atlas:22:/z1p0/consoles/sega/megadrive
+atlas:/galaxy/consoles/sega/saturn/:atlas:22:/z1p0/consoles/sega/saturn
+atlas:/galaxy/consoles/sony/ps2/:atlas:22:/z1p0/consoles/sony/ps2
+atlas:/galaxy/consoles/sony/psp/:atlas:22:/z1p0/consoles/sony/psp
+atlas:/galaxy/consoles/turbografx/:atlas:22:/z1p0/consoles/turbografx
+atlas:/galaxy/development/:atlas:22:/z1p0/backup/development
+atlas:/galaxy/documentations/:atlas:22:/z1p0/backup/documentations
+atlas:/galaxy/drivers/:atlas:22:/z1p0/backup/drivers
+atlas:/galaxy/famille/docs/:atlas:22:/z1p0/backup/famille/docs
+atlas:/galaxy/famille/films/:atlas:22:/z1p0/backup/famille/films
+atlas:/galaxy/galaxy_framework/openvpn/:atlas:22:/z1p0/backup/galaxy_framework/openvpn
+atlas:/galaxy/galaxy_framework/mattermost/:atlas:22:/z1p0/backup/galaxy_framework/mattermost
+atlas:/galaxy/galaxy_framework/nextcloud/:atlas:22:/z1p0/backup/galaxy_framework/nextcloud
+atlas:/galaxy/home/sphinx/:atlas:22:/z1p0/backup/volans/home/sphinx
+atlas:/galaxy/home/tnx/:atlas:22:/z1p0/backup/volans/home/tnx
+atlas:/galaxy/logic/:atlas:22:/z1p0/backup/volans/logic
+atlas:/galaxy/music/:atlas:22:/z1p0/backup/music
+atlas:/galaxy/OS/dos/:atlas:22:/z1p0/backup/OS/dos
+atlas:/galaxy/OS/freebsd/:atlas:22:/z1p0/backup/OS/freebsd
+atlas:/galaxy/OS/linux/:atlas:22:/z1p0/backup/OS/linux
+atlas:/galaxy/OS/macosx/:atlas:22:/z1p0/backup/OS/macosx
+atlas:/galaxy/OS/macpro11/:atlas:22:/z1p0/backup/OS/macpro11
+atlas:/galaxy/OS/openbsd/:atlas:22:/z1p0/backup/OS/openbsd
+atlas:/galaxy/OS/os2/:atlas:22:/z1p0/backup/OS/os2
+atlas:/galaxy/OS/other/:atlas:22:/z1p0/backup/OS/other
+atlas:/galaxy/OS/solaris/:atlas:22:/z1p0/backup/OS/solaris
+atlas:/galaxy/OS/vm/:atlas:22:/z1p0/backup/OS/vm
+atlas:/galaxy/OS/windows/:atlas:22:/z1p0/backup/OS/windows
+atlas:/galaxy/programs/:atlas:22:/z1p0/backup/programs
+atlas:/galaxy/minecraft/:atlas:22:/z1p0/backup/minecraft
+atlas:/galaxy/games/:atlas:22:/z1p0/backup/games
+######################################################
+# cygnus -> phoenix
+######################################################
+mattermost@www.irishgalaxy.com:/zdata/k8s/backup/mattermost:phoenix:8081:/zdata/backup/k8s/mattermost
+tnx@www.irishgalaxy.com:/zdata/k8s/backup/nextcloud:phoenix:8081:/zdata/backup/k8s/nextcloud
+tnx@www.irishgalaxy.com:/home/tnx/theproj/dataset/visualemotions:phoenix:8081:/zdata/backup/theproj/dataset/visualemotions
+tnx@www.irishgalaxy.com:/home/theproj/git:phoenix:8081:/zdata/backup/theproj/git
+tnx@www.irishgalaxy.com:/galaxy/git:phoenix:8081:/zdata/backup/automation_git
+tnx@www.irishgalaxy.com:/home/theproj/livrables:phoenix:8081:/zdata/backup/theproj/livrables
+tnx@www.irishgalaxy.com:/home/theproj/presentations:phoenix:8081:/zdata/backup/theproj/presentations
+tnx@www.irishgalaxy.com:/zdata/photo_gallery:phoenix:8081:/zdata/photo_gallery
+tnx@www.irishgalaxy.com:/home/theproj/repo/dockerimg:phoenix:8081:/zdata/backup/theproj/dockerimg
+tnx@www.irishgalaxy.com:/home/theproj/tagging:phoenix:8081:/zdata/backup/theproj/tagging
+######################################################
+# haumea -> phoenix
+######################################################
+lo@haumea:/home/lo:phoenix:22:/zdata/backup/haumea
+######################################################
+# atlas -> gozer
+######################################################
+# TO TEST
+atlas:/galaxy/password/:gozer.irishgalaxy.com:8080:/galaxy/backup/password
+atlas:/galaxy/photo_gallery/:gozer.irishgalaxy.com:8080:/galaxy/backup/photo_gallery
+atlas:/galaxy/voiture/:gozer.irishgalaxy.com:8080:/galaxy/backup/voiture
+atlas:/galaxy/logic/:gozer.irishgalaxy.com:8080:/galaxy/backup/logic
+atlas:/galaxy/famille/docs/:gozer.irishgalaxy.com:8080:/galaxy/backup/famille/docs
+atlas:/galaxy/famille/films/:gozer.irishgalaxy.com:8080:/galaxy/backup/famille/films
+atlas:/galaxy/galaxy_framework/mattermost/:gozer.irishgalaxy.com:8080:/galaxy/backup/galaxy_framework/mattermost
+atlas:/galaxy/profiles/mirella/:gozer.irishgalaxy.com:8080:/galaxy/backup/profiles/mirella
+atlas:/galaxy/profiles/yannick/:gozer.irishgalaxy.com:8080:/galaxy/backup/profiles/yannick
+atlas:/galaxy/project/theproj/repo/:gozer.irishgalaxy.com:8080:/galaxy/backup/project/theproj/repo
+atlas:/galaxy/project/theproj/rsynced/theproj/:gozer.irishgalaxy.com:8080:/galaxy/backup/project/theproj/rsynced/theproj
+atlas:/galaxy/project/theproj/datasetversions/:gozer.irishgalaxy.com:8080:/galaxy/backup/project/theproj/datasetversions
+atlas:/galaxy/voyage/:gozer.irishgalaxy.com:8080:/galaxy/backup/voyage
+#atlas:/galaxy/archives_galaxy/:gozer.irishgalaxy.com:8080:/galaxy/backup/archives_galaxy
+#atlas:/galaxy/development/:gozer.irishgalaxy.com:8080:/galaxy/backup/development
+#atlas:/galaxy/drivers/:gozer.irishgalaxy.com:8080:/galaxy/backup/drivers
+#atlas:/galaxy/programs/:gozer.irishgalaxy.com:8080:/galaxy/backup/programs
+#atlas:/galaxy/OS/dos/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/dos
+#atlas:/galaxy/OS/freebsd/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/freebsd
+#atlas:/galaxy/OS/linux/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/linux
+#atlas:/galaxy/OS/macpro11/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/macpro11
+#atlas:/galaxy/OS/openbsd/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/openbsd
+#atlas:/galaxy/OS/os2/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/os2
+#atlas:/galaxy/OS/other/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/other
+#atlas:/galaxy/OS/solaris/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/solaris
+#atlas:/galaxy/OS/vm/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/vm
+#atlas:/galaxy/OS/windows/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/windows
+#atlas:/galaxy/OS/macosx/:gozer.irishgalaxy.com:8080:/galaxy/backup/OS/macosx
+#atlas:/galaxy/project/proj_01/:gozer.irishgalaxy.com:8080:/galaxy/backup/project/proj_01
+atlas:/galaxy/music/:gozer.irishgalaxy.com:8080:/galaxy/backup/music
+atlas:/galaxy/books/:gozer.irishgalaxy.com:8080:/galaxy/backup/books
+atlas:/galaxy/documentations/:gozer.irishgalaxy.com:8080:/galaxy/backup/documentations
+######################################################
+# gozer -> atlas
+######################################################
+# TO TEST
+gozer:/galaxy/profiles/annemarie/:atlas:22:/galaxy/backup/profiles/annemarie
+gozer:/galaxy/profiles/francoise/:atlas:22:/galaxy/backup/profiles/francoise
+gozer:/galaxy/profiles/minh/:atlas:22:/galaxy/backup/profiles/minh
+gozer:/galaxy/profiles/lo/:atlas:22:/galaxy/backup/profiles/lo
+gozer:/galaxy/films/pedagogique/:atlas:22:/galaxy/backup/films/pedagogique
+######################################################
+# cygnus -> atlas
+######################################################
+# TO TEST
+tnx@cygnus:/home/tnx/work/mattermost/backup/mattermostdata.tar.gz/:atlas:22:/galaxy/galaxy_framework/mattermost/rsynced
+tnx@cygnus:/home/tnx/work/mattermost/script/:atlas:22:/galaxy/galaxy_framework/mattermost/rsynced
+tnx@cygnus:/home/tnx/work/mattermost/backup/backup_date/:atlas:22:/galaxy/galaxy_framework/mattermost/rsynced
+tnx@cygnus:/home/theproj/:atlas:22:/galaxy/project/theproj/rsynced
+tnx@cygnus:/galaxy/minecraft/:atlas:22:/galaxy/backup/minecraft
+######################################################
+# cygnus -> cromserver
+######################################################
+cygnus:/home/theproj/auto/:crom.irishgalaxy.com:8181:/zdata/utilisateurs/yannick/theproj/auto
+######################################################
+# cygnus -> kore
+######################################################
+# will basically be a clone of previous section
+######################################################
+# ibootis -> atlas
+######################################################
+# a verifier
+tnx@ibootis:/:atlas:22:/galaxy/profiles/yannick/rsynced
+tnx@ibootis:/Volumes/Data/tnx/Dropbox/docs//:atlas:22:/galaxy/profiles/yannick/rsynced/docs
+tnx@ibootis:/Users/tnx/Library/Mail/:atlas:22:/galaxy/profiles/yannick/rsynced/Library
+tnx@ibootis:/Users/tnx/Library/Calendars/:atlas:22:/galaxy/profiles/yannick/rsynced/Library
+tnx@ibootis:/Users/tnx/Library/Messages/:atlas:22:/galaxy/profiles/yannick/rsynced/Library
+tnx@ibootis:/Users/tnx/Library/Thunderbird/:atlas:22:/galaxy/profiles/yannick/rsynced/Library
+tnx@ibootis:'/Users/tnx/Library/Application\ Support/Adium*'/:atlas:22:/galaxy/profiles/yannick/rsynced/Library/Application\ Support
+######################################################
+# shinrarta -> atlas
+######################################################
+# check exclusions
+mirella@shinrarta:/Users/mirella//:atlas:22:/galaxy/profiles/mirella/autobackup/shinrarta/mirella
+######################################################
+# crux -> atlas
+######################################################
+# a verifier
+tnx@crux:/galaxy/:atlas:22:/galaxy/backup/crux
+######################################################
+# mercury -> gozer
+######################################################
+######################################################
+# haumea -> gozer
+######################################################

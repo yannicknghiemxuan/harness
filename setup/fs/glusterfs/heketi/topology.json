@@ -1,0 +1,46 @@
+{
+    "clusters": [
+        {
+            "nodes": [
+                {
+                    "node": {
+                        "hostnames": {
+                            "manage": [
+                                "192.168.0.73"
+                            ],
+                            "storage": [
+                                "192.168.0.73"
+                            ]
+                        },
+                        "zone": 1
+                    },
+                    "devices": [
+                        {
+                            "name": "/dev/zd0",
+                            "destroydata": true
+                        }
+                    ]
+                },
+                {
+                    "node": {
+                        "hostnames": {
+                            "manage": [
+                                "192.168.0.81"
+                            ],
+                            "storage": [
+                                "192.168.0.81"
+                            ]
+                        },
+                        "zone": 2
+                    },
+                    "devices": [
+                        {
+                            "name": "/dev/sda6",
+                            "destroydata": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+# xterm
+xterm*background: black
+xterm*foreground: white
+
+# motif window manager
+Mwm*background: LightBlue
+Mwm*foreground: Black
+Mwm*activeBackground: Blue
+Mwm*icon*foreground: DarkSlateBlue
+
+Mwm*keyboardFocusPolicy: pointer
+Mwm*focusAutoRaise: true
+
+Mwm*UseIconBox: true
+#Mwm*iconBoxGeometry: 3x2
+#Mwm*my_application*iconImage: ~/my.bitmap

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+[[ -z $1 ]] && echo "usage $0 <ip>" && exit 1
+xtightvncviewer "$1" -encodings Tight -quality 9 -compresslevel 1

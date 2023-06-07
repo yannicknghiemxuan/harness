@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+mkdir -p ~/.kube || true
+scp ansible@cygnus:/home/ansible/.kube/config ~/.kube
+chmod 700 ~/.kube
+chmod 600 ~/.kube/config

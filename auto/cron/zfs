@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+cat <<EOF
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# zfs snapshot
+0 * * * * root $AUTOROOT/harness/auto/zfs/hourlysnap.sh > $AUTOROOT/log/zfs/hourlysnap.log 2>&1
+0,15,30,45 * * * * root $AUTOROOT/harness/auto/zfs/dailysnap.sh > $AUTOROOT/log/zfs/zfsdailysnap.log 2>&1
+0,15,30,45 * * * * root $AUTOROOT/harness/auto/zfs/weeklysnap.sh > $AUTOROOT/log/zfs/zfsweeklysnap.log 2>&1
+0,15,30,45 * * * * root $AUTOROOT/harness/auto/zfs/monthlysnap.sh > $AUTOROOT/log/zfs/monthlysnap.log 2>&1
+# zfs health check
+0,15,30,45 * * * * root $AUTOROOT/harness/auto/zfs/scrubpools.sh > $AUTOROOT/log/zfs/scrubpools.log 2>&1
+0 * * * * root $AUTOROOT/harness/monitoring/check_zfs_failures.sh > $AUTOROOT/log/zfs/check_zfs_failures.log 2>&1
+# checks the zfs mountpoints
+1 0,3,6,9,12,15,18,21 * * * root $AUTOROOT/harness/monitoring/check_zfs_mounts.sh > $AUTOROOT/log/zfs/check_zfs_mounts.log 2>&1
+EOF

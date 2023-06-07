@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -x
+[[ -z $1 ]] && exit
+port=$1
+sudo bash -c "netstat -ltnp | grep -w :$port"

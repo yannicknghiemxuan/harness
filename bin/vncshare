@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+if [[ -z $DISPLAY ]]; then
+    echo '$DISPLAY environment variable not set, did you run the script from a graphical terminal?'
+    exit 1
+fi
+x0vncserver -SecurityTypes=none -display "$DISPLAY"

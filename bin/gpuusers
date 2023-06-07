@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# source: https://stackoverflow.com/questions/8223811/top-command-for-gpus-using-cuda
+period=5
+watch -n $period -t 'echo "list of processes using the GPU (updated every '$period' sec):"; ps f -o user,pgrp,pid,pcpu,pmem,start,time,command -p `sudo lsof -n -w -t /dev/nvidia*` | cut -c -80'

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+kubectl run myalpine --rm -i --tty --image alpine:3.12 -n "$1" -- ash

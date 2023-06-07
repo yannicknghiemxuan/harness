@@ -1,0 +1,10 @@
+#code;supported by WE black
+h264;false
+mpeg1video;true
+mpeg2video;false
+mpeg4;true
+msmpeg4;true
+msmpeg4v2;false
+rv30;false
+rv40;false
+wmv2;false

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+. "$AUTOROOT/harness/modules/identify_OS"
+adminuser="root"
+
+
+fix_permissions()
+{
+    sudo chown "$adminuser" "$AUTOROOT"
+    sudo chmod 775 "$AUTOROOT"
+    sudo bash -c "find $AUTOROOT -type d \
+-exec chown $adminuser {} \\; \
+-exec chgrp $admingroup {} \\; \
+-exec chmod 2775 {} \\;"
+    sudo bash -c "find $AUTOROOT -type f \
+-exec chown $adminuser {} \\; \
+-exec chgrp $admingroup {} \\; \
+-exec chmod g+rw {} \\;"
+    autofiles="/etc/autoenv /etc/autorepos"
+    for f in $autofiles; do
+	if [[ -f $f ]]; then
+	    sudo chown $adminuser "$f"
+	    sudo chgrp $admingroup "$f"
+	    sudo chmod 664 "$f"
+	fi
+    done
+}
+
+
+main()
+{
+    fix_permissions
+}
+
+
+main

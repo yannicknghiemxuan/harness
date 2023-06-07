@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+cat <<EOF
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# backup jobs
+0 * * * * root $AUTOROOT/k8s/applications/helm/script/backup_mattermost.sh > $AUTOROOT/log/k8s/backup_mattermost.log 2>&1
+EOF

@@ -1,0 +1,15 @@
+# === Mac OS ===
+# export AUTOROOT=/Users/auto
+# === Linux / Unix ===
+export AUTOROOT=/auto
+
+# === server on local network ===
+# export SERVERURL=cygnus
+# export SERVERPORT=22
+# === server on remote network ===
+export SERVERURL=www.irishgalaxy.com
+export SERVERPORT=8081
+
+# === machines details and settings ===
+export ISGALAXY=true
+export ISTHEPROJ=true

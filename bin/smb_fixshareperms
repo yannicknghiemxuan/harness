@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+targetdir=$1
+
+sudo chcon -t samba_share_t "$targetdir"
+sudo semanage fcontext -at samba_share_t "$targetdir(/.*)?" || true
+sudo chgrp -R galaxy "$targetdir"
+sudo chmod 775 "$targetdir"

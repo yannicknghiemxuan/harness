@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+. /etc/autoenv
+ftmp=/tmp/sup.$$
+[[ -z $1 ]] && echo "usage: $0 machine" && exit 1
+for m in $(grep -i $1 $AUTOROOT/rigs/*/detail/hardware | grep -v -E '^#' | awk -F';' '{print $1}'); do
+    echo "~FGRED~"$(grep -E "^${m}\;" $AUTOROOT/rigs/*/detail/hardware | sed -e 's@[;]@ ~BOLD~~FGWHITE~:~~ @g')"~~" >> $ftmp
+    echo "arch    ~BOLD~~FGWHITE~:~~ ~FGMAGENTA~"$(grep -E '^'${m}'\;' $AUTOROOT/rigs/*/detail/arch | awk -F';' '{print $2}')"~~" >> $ftmp
+    echo "owner   ~BOLD~~FGWHITE~:~~ ~FGCYAN~"$(grep -E '^'${m}'\;' $AUTOROOT/rigs/*/detail/owners | awk -F';' '{print $2}')"~~" >> $ftmp
+    echo "ip      ~BOLD~~FGWHITE~:~~ ~FGYELLOW~"$(grep -w ${m} $AUTOROOT/rigs/*/detail/hosts | grep -v -E '\-sc' | awk '{print $1}')"~~" >> $ftmp
+    echo "mac     ~BOLD~~FGWHITE~:~~ ~FGBLUE~"$(grep -E '^'${m}'\;' $AUTOROOT/rigs/*/detail/ethers | awk -F';' '{print $2, $4, "->", $3}')"~~" >> $ftmp
+    echo "7zip benchmark~BOLD~~FGWHITE~:~~ "$(grep -E '^'${m}'\;' $AUTOROOT/rigs/*/detail/bench_7z | awk -F';' '{print "Single-core:~FGYELLOW~", $2, "~~  Multi-core :~FGGREEN~", $3}')"~~" >> $ftmp
+done
+if [[ -f $ftmp ]]; then
+    $AUTOROOT/harness/bin/colorize.sh < $ftmp
+    rm $ftmp
+else
+    echo "no matching entry found"
+fi

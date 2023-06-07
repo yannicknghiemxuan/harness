@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+targetuser=$1
+
+sudo smbpasswd -a "$targetuser"
+sudo usermod -a -G galaxy "$targetuser"

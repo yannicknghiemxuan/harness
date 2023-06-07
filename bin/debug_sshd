@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+port=1234
+echo "to fix the permissions on your account you can try: fix_sshdir_perms"
+echo "starting a new instance of sshd on port $port"
+sudo sshd -rdddp "$port"

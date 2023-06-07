@@ -1,0 +1,26 @@
+pkg_cli="bash zsh tmux tree cdialog pstree gsed gawk gnu-watch"
+pkg_editor="emacs-nox vim hexedit"
+pkg_dev="py38-yamllint hs-ShellCheck vscode"
+pkg_k8s="kubectl helm"
+pkg_arch="p7zip gtar"
+pkg_system="htop iftop coreutils"
+pkg_gui="terminator"
+pkg_net="elinks wget curl wireshark nmap ipv6calc rsync"
+pkg_imagetool="p5-Image-ExifTool graphicsmagick"
+pkg_srccontrol="git"
+pkg_crypto="password-store gpg-tui"
+pkg_vid_enc="ffmpeg"
+
+
+# pre-install commands
+pre_install_cmd()
+{
+   echo ""
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   echo ""
+}

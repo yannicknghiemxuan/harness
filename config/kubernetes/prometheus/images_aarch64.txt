@@ -1,0 +1,2 @@
+carlosedp/kube-state-metrics:v1.9.6@kube-state-metrics:active
+rmb938/prometheus-operator-multi-arch:v0.38.1@prometheus-operator-multi-arch:v0.38.1

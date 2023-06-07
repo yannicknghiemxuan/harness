@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# converts a mercurial repo to a git repo
+# sources:
+# - https://github.com/bclermont/docker-fast-export
+# - https://github.com/frej/fast-export
+set -x
+[[ $# -ne 2 ]] && echo "$0 <hg> <git>, absolute paths only" && exit 1
+hgdir=$1
+gitdir=$2
+git init $gitdir
+docker run --rm -ti \
+       --user $(id -u):$(id -g) \
+       -v $gitdir:/workdir/git \
+       -v $hgdir:/workdir/hg \
+       bclermont/fast-export
+cd $gitdir
+git checkout HEAD

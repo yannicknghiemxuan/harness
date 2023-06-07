@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export S_COLORS=true
+export S_COLORS_SGR="H=31;1:I=32;22:M=33;1:N=34;1:Z=34;22"
+mpstat -P ALL 5

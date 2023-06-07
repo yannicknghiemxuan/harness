@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+cat <<EOF
+hdiutil convert -format UDRW -o ~/Path-to-IMG-file ~/Path-to-ISO-file.iso
+diskutil list
+diskutil unmountDisk /dev/diskN
+sudo gdd if=/Path-to-IMG-DMG-file of=/dev/rdiskN bs=1M status=progress
+EOF

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+podman rm $(podman ps -a -q -f status=exited | xargs)

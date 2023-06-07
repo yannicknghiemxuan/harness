@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+repoconf=$AUTOROOT/harness/config/repos/repos.conf
+[[ -f /etc/autorepos ]] && repoconf=/etc/autorepos || true
+
+for l in $(grep -E ';true' $repoconf); do
+    localpath="${AUTOROOT}/$(echo $l | awk -F\; '{print $1}')"
+    remotepath="$(echo $l | awk -F\; '{print $2}')"
+    if [[ ! -d $localpath ]]; then
+	echo "cloning ssh://$SERVERURL:$SERVERPORT/$remotepath"
+	mkdir -p $(dirname "$localpath") || true
+	cd $(dirname "$localpath")
+	git clone "ssh://$SERVERURL:$SERVERPORT/$remotepath" $(basename "$localpath")
+    else
+	cd $localpath
+	git config --global --add safe.directory "$localpath"
+	git config pull.rebase false
+	git fetch
+	git merge
+    fi
+    cd -
+done
+if [[ -d ~/.password-store ]]; then
+    cd ~/.password-store
+    git config pull.rebase false
+    git fetch
+    git merge
+fi

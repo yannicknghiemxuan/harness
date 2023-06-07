@@ -1,0 +1,21 @@
+{
+  "teams": [
+    {
+      "name": "irishgalaxy",
+      "url": "https://www.irishgalaxy.com"
+    }
+  ],
+  "showTrayIcon": true,
+  "trayIconTheme": "light",
+  "version": 1,
+  "minimizeToTray": false,
+  "notifications": {
+    "flashWindow": 2,
+    "bounceIcon": false,
+    "bounceIconType": "informational"
+  },
+  "showUnreadBadge": true,
+  "useSpellChecker": true,
+  "spellCheckerLocale": "en-US",
+  "enableHardwareAcceleration": true
+}

@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+srcmac=$(uname -n | awk -F\. '{print $1}')
+tgtmac=$1
+nparam=$#
+cfgfile=$AUTOROOT/harness/config/backup/fsbackupmap
+logdir=$AUTOROOT/log/fsbackup
+#dryrun=true
+rsynclog=/tmp/rsynclog.$$
+
+usage()
+{
+    echo "$0 <target machine>"
+}
+
+check_requirements()
+{
+    if [[ $nparam -ne 1 ]]; then
+        usage
+        exit 1
+    fi
+    if [[ ! -f $cfgfile ]]; then
+        echo "error: config file missing: $cfgfile"
+        exit 1
+    fi
+    mkdir -p $logdir || true
+}
+
+generate_rsynclog()
+{
+    echo "fsbackup log: $srcmac -> $tgtmac" > $rsynclog
+    echo "command: $rsynccmd" >> $rsynclog
+    echo "end date: $(date)" >> $rsynclog
+}
+
+compose_commands()
+{
+    src="$tgtmac:"
+    # if we need to run rsync with local filesystems
+    [[ $tgtmac = $srcmac ]] && src=""
+    dryrunopt=
+    [[ ${dryrun-} = true ]] && dryrunopt="--dry-run"
+    eopt=""
+    rsynccmd="rsync -ave \"ssh -p $tgtport\" --delete --progress --partial --exclude '.\$EXTEND' --exclude .zfs $dryrunopt $srcpath ${src}${tgtpath}"
+    rsynclogcmd="rsync -ave \"ssh -p $tgtport\" $rsynclog ${src}${tgtpath}/rsync.log"
+}
+
+check_requirements
+OIFS=$IFS
+NIFS='
+'
+IFS=$NIFS
+logfile="$logdir/fsbackup_${srcmac}_${tgtmac}.log"
+[[ -f "$logfile" ]] && mv "$logfile" "$logfile.old" || true
+touch "$logfile"
+chmod 660 "$logfile"
+echo "log: $logfile"
+for line in $(egrep -v '^#' "$cfgfile" | egrep "^$srcmac" | grep ":${tgtmac}:"); do
+    srcpath=$(echo "$line" | awk -F: '{print $2}')
+    tgtport=$(echo "$line" | awk -F: '{print $4}')
+    tgtpath=$(echo "$line" | awk -F: '{print $5}')
+    compose_commands
+    generate_rsynclog
+    echo '******************' >> "$logfile"
+    echo "$rsynccmd" >> "$logfile"
+    echo '******************' >> "$logfile"
+    echo "$rsynccmd"
+    OIFS=$IFS
+    eval "$rsynccmd" >> "$logfile" 2>&1 || true
+    echo "$rsynclogcmd"
+    eval "$rsynclogcmd" >> "$logfile" 2>&1 || true
+    IFS=$NIFS
+done

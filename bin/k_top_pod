@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+watch -n 1 kubectl top pod "$@"
+

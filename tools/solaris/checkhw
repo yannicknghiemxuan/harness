@@ -1,0 +1,23 @@
+!/usr/bin/env bash
+
+
+check_fma() {
+    fmadm faulty
+}
+
+
+check_error_level() {
+    grep -E "Error Level: Fatal|Error Level: Retryable" /var/adm/messages*
+}
+
+
+check_kern_warning() {
+    grep -E "ID 107833 kern.warning|ID 641072 kern.warning" /var/adm/messages*
+}
+
+
+main() {
+    check_fma
+    check_error_level
+    check_kern_warning
+}

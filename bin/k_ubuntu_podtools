@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+echo "apt-get update && apt-get install -y nmap iputils-ping telnet netcat dnsutils emacs-nox"

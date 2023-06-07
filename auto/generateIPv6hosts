@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+cat <<EOF
+#################################
+# IPv6 addresses based on UEI-64
+#################################
+
+EOF
+for line in $(grep ';primary' $AUTOROOT/rigs/*/detail/ethers | grep -v -E TODO); do
+    host=$(echo $line | awk -F';' '{print $1}')
+    mac=$(echo $line | awk -F';' '{print $3}')
+    ipv6=$(ipv6calc -q --action prefixmac2ipv6 --in prefix+mac --out ipv6addr fe80:: $mac)
+    printf '%-38s %s\n' $ipv6 $host
+done

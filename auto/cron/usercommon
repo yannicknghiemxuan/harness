@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+cat <<EOF
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# SCRIPTS FOR THE HARNESS == BEGIN ==
+# pulls changes from the repo
+0 * * * * root $AUTOROOT/harness/bin/pullrepos > $AUTOROOT/log/auto/pullrepos.log 2>&1
+# updates the ssh authorized_keys file
+0 * * * * root $AUTOROOT/harness/auto/sshkeys_updateauthorizedkeys.sh >$AUTOROOT/log/auto/sshkeys_updateauthorizedkeys.log 2>&1
+# SCRIPTS FOR THE HARNESS == END ==
+EOF

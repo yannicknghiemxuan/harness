@@ -1,0 +1,197 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use lib "/auto/lib";
+#use perflib;
+my $build = `uname -r`;
+my $ver = `uname -v`;
+my $name = `uname -n`;
+my @lines;
+chomp $ver;
+chomp $name;
+my $oracle;
+my $fieldfour;
+
+#perflib::getautobenchvars();
+
+sub findmanifest() {
+        my $build = shift;
+        my $ver = shift;
+        # my $name = shift;
+        if ( $name =~ /tvp/ ) {
+                $build = `pkg list osnet-incorporation`;
+                ($build) = ($build =~/0.5.1[1,2]-(\S+)/);
+                # $build =~ s/[^\d.]//g;
+        } elsif ( -f "/root/pp/i.am.a.sru" ) {
+                open(IN, "/root/pp/i.am.a.sru");
+                $build = <IN>;
+                close IN;
+                chomp $build;
+                print "$build\n";
+                exit (0);
+        } elsif ( $ver ne "11.1" && ! -f "/onu_i_am" ) {
+                open(IN, "pkg info entire 2>/dev/null|");
+                @lines = <IN>;
+                close(IN);
+                if (!@lines){
+                        open(IN, "pkg info osnet-incorporation 2>/dev/null|");
+                        @lines = <IN>;
+                        close(IN);
+                }
+                @lines = grep(/Branch/, @lines);
+                (undef, $build) = split /:/, $lines[0];
+                $build =~ s/\s+//;
+        } elsif ( -f "/var/tmp/pkg.info.entire" ) {
+                open(IN, "/var/tmp/pkg.info.entire");
+                my @lines = <IN>;
+                close(IN);
+                @lines = grep(/entire@/, @lines);
+                if ($#lines >= 0 ) {
+                        $build = $lines[0];
+                        $build =~ s/\s+.*entire@.*-//;
+                        $build =~ s/<\/name>//;
+                        ($build,undef)=split /:/,$build;
+                } else {
+                        $build = `pkg list osnet-incorporation`;
+                        ($build) = ($build =~/0.5.1[1,2]-(\S+)/);
+                }
+        } elsif ( -f "/var/sadm/system/logs/ai.xml" ) {
+                open(IN, "/var/sadm/system/logs/ai.xml");
+                my @lines = <IN>;
+                close(IN);
+                @lines = grep(/<name>.*entire@/, @lines);
+                if ($#lines >= 0 ) {
+                        $build = $lines[0];
+                        $build =~ s/\s+<name>.*entire@.*-//;
+                        $build =~ s/<\/name>//;
+                        ($build,undef)=split /:/,$build;
+                } else {
+                        $build = `pkg list osnet-incorporation`;
+                        ($build) = ($build =~/0.5.1[1,2]-(\S+)/);
+                }
+        } elsif ( -f "/var/log/install/ai.xml" ) {
+                open(IN, "/var/log/install/ai.xml");
+                my @lines = <IN>;
+                close(IN);
+                @lines = grep(/<name>entire@/, @lines);
+                $build = $lines[0];
+                $build =~ s/<name>entire@//;
+                $build =~ s/<\/name>//;
+                $build =~ s/.*,.*-//;
+        }
+        my (undef, $mbuild, $update, $sru, undef, $bld, undef) = split/\./, $build;
+        if ( defined $update && $update > 0 && $sru == 0 ) {
+                system("$ENV{RCP} irperf2:/export/builds/s11update/ai.build.to.version /var/tmp >/dev/null");
+                open(IN, "/var/tmp/ai.build.to.version");
+                my @lines = <IN>;
+                close(IN);
+                chomp($build);
+                $build=~s/\.\d$//;
+                @lines = grep(/$build/, @lines);
+                ($build, undef) = split/\:/, $lines[0];
+        } elsif ( $mbuild == 12 ) {
+                system("$ENV{RCP} irperf2:/export/builds/s12/ai.build.to.version /var/tmp 2>/dev/null") if (!-f "/var/tmp/ai.build.to.version");
+                open(IN, "/var/tmp/ai.build.to.version");
+                my @lines = <IN>;
+                close(IN);
+                chomp($build);
+                @lines = grep(/$build/, @lines);
+                if ( scalar @lines > 0 ) {
+                        ($build, undef) = split/\:/, $lines[0];
+                } else {
+                        $build="s12_$bld";
+                }
+        } elsif ( defined $sru && $sru > 0 ) {
+                $bld = "0" . $bld if ( $sru >= 1 );
+                $build = "s11u${update}sru$sru" . "_$bld";
+        } else {
+                if ( defined $bld ) {
+                        $build = "osol_1002-$mbuild".chr(96+$bld);
+                } else {
+                        $build = "osol_1002-$mbuild";
+                }
+        }
+        return $build;
+}
+
+if ( $build =~ /5.11/ || $build =~ /5.12/) {
+        my $train = $build;
+
+        if ( -f "/pkg.update.i_am" ) {
+
+                open IN, "/pkg.update.i_am";
+                my @lines = <IN>;
+                close IN;
+                $build = $lines[0];
+
+        } elsif ( -f "/onu_i_am" ) {
+                open(IN, "/onu_i_am");
+                my @lines = <IN>;
+                close(IN);
+                $build = $lines[0];
+                if ( $build =~ /selftest/ ) {
+                        if ( -f "/var/pkg/cache/publisher/on-nightly/pkg/consolidation%2Fosnet%2Fosnet-incorporation" ) {
+                                open(IN, "ls /var/pkg/cache/publisher/on-nightly/pkg/consolidation%2Fosnet%2Fosnet-incorporation|");
+                                my @lines = <IN>;
+                                close(IN);
+                                (undef, $build) = split /-/, $lines[0];
+                                $build =~ s/%.*//;
+                                $build =~ s/.[0-9]*$//;
+                        } else {
+                                open(IN, "pkg info osnet-incorporation|");
+                                my @lines = <IN>;
+                                close(IN);
+                                @lines = grep(/\s+Branch/, @lines);
+                                (undef, $build) = split/:/, $lines[0];
+                                $build =~ s/^\s+//;
+                                $build =~ s/.[0-9]*$//;
+                        }
+                        if ( $train =~ /5.12/ ) {
+                                open(IN, "/net/irperf2/export/builds/s12/ai.build.to.version");
+                        } else {
+                                open(IN, "/net/irperf2/export/builds/s11update/ai.build.to.version");
+                        }
+                        @lines = <IN>;
+                        close(IN);
+                        chomp($build);
+                        @lines = grep(/$build/, @lines);
+                        if ( $#lines >= 0 ) {
+                                ($build, undef) = split /\:/, $lines[0];
+                        } else {
+                                $build = &findmanifest($build, $ver);
+                        }
+                } else {
+                        if ( $build =~ /gen[x|s]_on/ ) {
+                                $build =~ s/gen[x|s]_on//;
+                                $build =~ s/^[0-9][0-9][0-9][0-9][0-9][0-9][0-9]_on//;
+                                my $update;
+                                ($build, $update, undef) = split /\_/, $build;
+                                $build = "s$build\_$update";
+                        } else {
+                                $build = &findmanifest($build, $ver);
+                        }
+                }
+        } else {
+                if ( $ver =~ /11\./ ) {
+                        $build = &findmanifest($build, $ver);
+                } elsif ( $ver !~ /^1/ ) {
+                        $build = &findmanifest($build, $ver);
+                } else {
+                        $build = $ver;
+                }
+        }
+} elsif ( $build =~ /5.10/ ) {
+        $build = `head -1 /etc/release`;
+        (undef, $oracle, undef, undef, $fieldfour, $build, undef) = split /\s+/, $build;
+        # Older /etc/release does not have the word 'Oracle'
+        if ( $oracle =~ /Solaris/ ) {
+                $build = $fieldfour;
+        }
+        $build =~ s/wos//;
+        $build =~ s/s10._/s10/;
+}
+
+chomp($build);
+print "$build\n";
+exit 0;

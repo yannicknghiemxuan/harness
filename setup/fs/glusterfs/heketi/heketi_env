@@ -1,0 +1,5 @@
+mykubehost=cygnus.irishgalaxy.com
+mykubeuser=ansible
+mykubepassword=$(cat ~ansible/.password.txt)
+mykubenamespace=default
+myvolumecapacitygb=200

@@ -1,0 +1,51 @@
+# gathers operating system informations
+SOURCED_IDENTIFY_OS=yes
+
+identify_OS()
+{
+    OS_TYPE=$(uname -s)
+    [[ $OS_TYPE == Linux ]] && . /etc/os-release || true
+    case $OS_TYPE in
+	Linux)
+	    . /etc/os-release
+            if [[ -z ${ID_LIKE-} ]]; then
+	       ID_LIKE=$ID
+            fi
+	    case $ID_LIKE in
+		*debian*|*ubuntu*)
+		    admingroup="sudo"
+		    ;;
+		*rhel*|arch)
+		    admingroup="wheel"
+		    ;;
+		*)
+		    echo "unknown flavor of Linux"
+		    exit 1
+		    ;;
+	    esac
+	    ;;
+	Darwin)
+	    ID=macos
+	    VERSION=$(sw_vers -productVersion)}
+	    VERSION_ID=$(sw_vers -productVersion | sed -e 's@\.[0-9]*$@@')
+	    admingroup="admin"
+	    ;;
+	SunOS)
+	    ID=sunos
+	    admingroup="staff"
+	    ;;
+	FreeBSD)
+	    ID=freebsd
+	    fullversion=$(freebsd-version -k)
+	    VERSION=$(echo $fullversion | awk -F'-' '{print $1}')
+	    VERSION_ID=$(echo $fullversion | awk -F'.' '{print $1}')
+	    admingroup="wheel"
+	    ;;
+	*)
+	    ;;
+    esac
+    OS_ARCH=$(uname -m)
+}
+
+
+identify_OS

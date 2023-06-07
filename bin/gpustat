@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+#Color Foreground Background
+#black 30 40
+#red 31 41
+#green 32 42
+#yellow 33 43
+#blue 34 44
+#magenta 35 45
+#cyan 36 46
+#white 37 47
+lowcol='\e[1;34m'
+medcol='\e[1;33m'
+highcol='\e[1;31m'
+endcol='\033[0m'
+
+period=$1
+[[ -z $period ]] && period=5
+IFS='
+'
+
+colorize()
+{
+    [[ -z $1 ]] && return
+    if [[ $1 -lt 50 ]]; then
+	ret=$lowcol
+    elif [[ $1 -gt 50 ]] && [[ $1 -le 75 ]]; then
+	ret=$medcol
+    else
+	ret=$highcol
+    fi
+    return "$1"
+}
+
+gpunum=$(nvidia-smi -q -g 0 -d UTILIZATION,TEMPERATURE \
+	     | grep -E 'Attached GPUs' \
+	     | awk '{print $NF}')
+while true; do
+    thegpu=0
+    while [[ $thegpu -lt $gpunum ]]; do
+	gpudetail=$(nvidia-smi -L \
+			| sed -e 's@[(].*@@' \
+			| grep -E "GPU $thegpu")
+	output=$(nvidia-smi -q -g $thegpu -d UTILIZATION,TEMPERATURE \
+		     | grep -E 'Gpu  |Memory  |GPU Current Temp' \
+		     | xargs)
+	gpu=$(echo "$output" | awk '{print $3}')
+	colorize "$gpu"
+	gpucol=$ret
+	mem=$(echo "$output" | awk '{print $7}')
+	colorize "$mem"
+	memcol=$ret
+	temp=$(echo "$output" | awk '{print $13}')
+	colorize "$temp"
+	tempcol=$ret
+	printf "%20s " "$gpudetail"
+	printf "GPU "
+	printf "$gpucol"
+	printf "%5s     " "$gpu"'%'
+	printf "$endcol"
+	printf "MEMORY "
+	printf "$memcol"
+	printf "%5s     " "$mem"'%'
+	printf "$endcol"
+	printf "Temp "
+	printf "$tempcol"
+	printf "%5s " "$temp"
+	printf "$endcol"
+	printf "C\\n"
+	tput sgr0
+	thegpu=$((thegpu + 1))
+    done
+    sleep $period
+done

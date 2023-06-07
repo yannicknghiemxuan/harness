@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+cd ~/games/doomwad
+if [[ -x /usr/games/gzdoom ]]; then
+    gzdoom -file bd21RC8.pk3
+elif [[ -x /Applications/GZDoom.app/Contents/MacOS/gzdoom ]]; then
+    /Applications/GZDoom.app/Contents/MacOS/gzdoom bd21RC8.pk3
+elif [[ -x /usr/bin/zandronum ]]; then
+    zandronum -file bd21RC8.pk3
+fi

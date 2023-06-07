@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+[[ ${SOURCED_IDENTIFY_OS-} != yes ]] && . $AUTOROOT/harness/modules/identify_OS || true
+
+
+update_apt()
+{
+    sudo apt-get autoremove -y
+    $AUTOROOT/harness/auto/clear_old_kernels.sh || true
+    sudo apt-get update
+    sudo apt-get dist-upgrade -y
+}
+
+
+main()
+{
+    $AUTOROOT/harness/bin/pullrepos
+    $AUTOROOT/harness/auto/updatehosts.sh || true
+    $AUTOROOT/harness/auto/sshkeys_updateauthorizedkeys.sh
+    case $OS_TYPE in
+	Linux)
+	    case $ID in
+		linuxmint|debian|raspbian)
+		    update_apt
+		    sudo flatpak update
+		    ;;
+		ubuntu)
+		    update_apt
+		    sudo snap refresh
+		    ;;
+		centos|rhel|fedora|rocky)
+		    sudo dnf upgrade -y
+		    ;;
+	    esac
+	    ;;
+	Darwin)
+	    brew upgrade
+	    ;;
+	FreeBSD)
+	    sudo pkg upgrade -y
+	    ;;
+    esac
+}
+
+
+main

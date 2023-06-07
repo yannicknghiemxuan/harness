@@ -1,0 +1,39 @@
+# aptitude
+pkg_cli="zsh tmux emacs-nox vim tree dialog shellcheck"
+pkg_tools="expect ansible"
+pkg_arch="p7zip-full zip unzip"
+pkg_dev="build-essential yamllint"
+pkg_system="apt-file apt-utils debsums openssh-server sysstat psmisc htop iftop glances nmon uuid"
+pkg_fs="gparted lvm2"
+pkg_vnc="xtightvncviewer tigervnc-common tigervnc-scraping-server tigervnc-standalone-server tigervnc-viewer"
+pkg_net="elinks mdns-scan wget curl ipv6calc wireshark firefox-esr"
+pkg_netshare="filezilla transmission-qt samba samba-vfs-modules"
+pkg_python="python3 python3-pip python3-testresources"
+pkg_mail="thunderbird mutt"
+pkg_x11tools="terminator pluma xterm xserver-xorg-input-all"
+pkg_x11themes="clearlooks-phenix-theme shiki-colors-metacity-theme tangerine-icon-theme"
+pkg_wm_wmaker="wmaker wmaker-common wmcpuload wmnet"
+pkg_wm_mate="mate-desktop-environment mate-media menulibre"
+pkg_imagetool="libimage-exiftool-perl graphicsmagick"
+pkg_srccontrol="git meld"
+pkg_crypto="pass gpg"
+pkg_multimedia="alsamixergui"
+pkg_office="libreoffice"
+pkg_caodao="blender inkscape gimp"
+pkg_vid_enc="ffmpeg ffmpeg-doc"
+# aptitude packages to remove
+pkg_rm="vino xed"
+
+
+# pre-install commands
+pre_install_cmd()
+{
+   echo ""
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   echo ""
+}

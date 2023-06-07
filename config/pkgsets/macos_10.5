@@ -1,0 +1,45 @@
+# packages that do not compile:
+# shellcheck: because of gmp
+# dialog
+
+# when gnupg2 compilation fails with this error:
+# ==> Downloading http://bugs.g10code.com/gnupg/file419/dirmngr-pth-fix.patch
+# curl: (22) The requested URL returned error: 404 Not Found
+# Error: Failed to download resource "dirmngr--patch"
+# Download failed: http://bugs.g10code.com/gnupg/file419/dirmngr-pth-fix.patch
+#
+# follow the steps here:
+# - https://github.com/Homebrew/homebrew-core/issues/12001
+# basically:
+# brew update; brew edit dirmngr
+# and replace:
+# http://bugs.g10code.com/gnupg/file419/dirmngr-pth-fix.patch
+# with
+# raw.githubusercontent.com/Homebrew/formula-patches/6965aa5/dirmngr/D186.diff
+# and then:
+# brew install -s dirmngr
+
+pkg_cli="bash zsh tmux tree pstree coreutils gnu-sed gnu-time gawk watch base64"
+pkg_editor="emacs vim hexedit"
+pkg_arch="p7zip gnu-tar"
+pkg_system="htop iftop"
+pkg_lang="python python3"
+pkg_net="elinks wget curl nmap ipv6calc"
+pkg_imagetool="exiftool"
+pkg_srccontrol="git"
+pkg_crypto="pass gnupg2"
+pkg_vid_enc="ffmpeg"
+
+
+# pre-install commands
+pre_install_cmd()
+{
+   echo ""
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   echo ""
+}

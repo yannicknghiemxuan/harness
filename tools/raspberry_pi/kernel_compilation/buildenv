@@ -1,0 +1,10 @@
+source ~/.bashrc
+export PATH=/opt/aarch64/bin/:$PATH
+builddir=/home/tnx/build
+arch=arm64
+cross_compile=aarch64-linux-gnu-
+kernconfigfile=.config_rbd
+nbthread=8
+targetrpi=rpi4
+kernel=kernel8
+domenuconfig=true

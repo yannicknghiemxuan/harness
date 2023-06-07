@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+tput sgr0
+declare -x TERM=xterm
+printf "\e[?2004l"

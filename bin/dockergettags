@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# source: https://stackoverflow.com/questions/28320134/how-can-i-list-all-tags-for-a-docker-image-on-a-remote-registry
+[[ -z $1 ]] && echo "$0 image" && exit
+wget -q "https://registry.hub.docker.com/v1/repositories/$1/tags" \
+     -O -  \
+    | sed -e 's/[][]//g' \
+	  -e 's/"//g' \
+	  -e 's/ //g' \
+    | tr '}' '\n'  \
+    | awk -F: '{print $3}'

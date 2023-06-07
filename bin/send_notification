@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+. $AUTOROOT/harness/modules/notify
+send_notif $*

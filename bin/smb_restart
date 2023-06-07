@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+[[ ${SOURCED_IDENTIFY_OS-} != yes ]] && . $AUTOROOT/harness/modules/identify_OS || true
+
+case $ID in
+    debian|raspbian)
+	;;
+    ubuntu|linuxmint)
+	sudo systemctl restart wsdd.service
+	sudo systemctl restart smbd.service
+	;;
+    centos|rhel|fedora|rocky)
+	sudo systemctl restart nmb.service
+	sudo systemctl restart smb.service
+	;;
+esac

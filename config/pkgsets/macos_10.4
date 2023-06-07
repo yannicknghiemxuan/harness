@@ -1,0 +1,31 @@
+# packages that do not compile:
+# shellcheck: because of gmp
+# dialog
+# coreutils: https://github.com/mistydemeo/tigerbrew/issues/640#issuecomment-958796773
+# nmap: liolib.c:552: error: ‘off_t’ undeclared (first use in this function)
+# pass & gnupg2: gnupg2 does not compile
+# manual workaround to compile gnupg2
+#
+pkg_cli="bash zsh tmux tree pstree gnu-sed gnu-time gawk watch base64"
+pkg_editor="emacs vim hexedit"
+pkg_arch="p7zip gnu-tar"
+pkg_system="htop iftop"
+pkg_lang="python python3"
+pkg_net="elinks wget curl ipv6calc"
+pkg_imagetool="exiftool"
+pkg_srccontrol="git"
+pkg_vid_enc="ffmpeg"
+
+
+# pre-install commands
+pre_install_cmd()
+{
+   echo ""
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   echo ""
+}

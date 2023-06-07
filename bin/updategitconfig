@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+. /etc/autoenv
+
+localstring="cygnus:22"
+remotestring="www.irishgalaxy.com:8081"
+
+case $1 in
+    remote)
+	oldstring=$localstring
+	newstring=$remotestring
+    ;;
+    local)
+	oldstring=$remotestring
+	newstring=$localstring
+    ;;
+    *)
+	echo "error: $1 unknown"
+	exit 1
+	;;
+esac
+
+for file in $(find $AUTOROOT -name config | grep '.git/config'); do
+    sed -i "s_//[a-z0-9@]*${oldstring}_//tnx@${newstring}_g" "$file"
+done

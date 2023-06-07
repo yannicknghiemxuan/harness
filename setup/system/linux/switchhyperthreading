@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#set -x
+# Yannick NGHIEM-XUAN
+# creation    : 18/01/2019
+#
+# version / description:
+scriptver=18_01_2019
+scriptdesc="enable or disable hyperthreading"
+echo "script version $scriptver: $scriptdesc"
+[[ $# -ne 1 ]] && echo "$0 followed by 1 to enable or 0 to disable hyperthreading" && exit 1
+switch=$1
+case $switch in
+    0)
+	for i in $(cat /sys/devices/system/cpu/cpu*/topology/thread_siblings_list \
+      		       | awk -F\, '{print $2}' | sort -u); do
+	    echo "$switch > /sys/devices/system/cpu/cpu$i/online"
+	    sudo bash -c "echo $switch > /sys/devices/system/cpu/cpu$i/online"
+	done
+	;;
+    1)
+	# cpu0 is always enabled
+	for i in $(ls -d /sys/devices/system/cpu/cpu[0-9]* | grep -v -E cpu0); do
+	    if [[ $(cat $i/online) -eq 0 ]]; then
+		echo "$switch > $i/online"
+		sudo bash -c "echo $switch > $i/online"
+	    fi
+	done
+esac

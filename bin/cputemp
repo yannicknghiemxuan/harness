@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+#set -euxo pipefail
+# loads the required environment variables and functions
+for f in $(cat ~/.theproj)/auto/.env; do [[ ! -f $f ]] && exit 1; source $f; done
+logdir=$globvardir/cputemp
+
+usage()
+{
+    if [[ $1 != "--record" ]]; then
+	echo "usage: cputemp [--record]"
+	exit 1
+    fi
+}
+
+logpath=
+enablerecording=false
+case $# in
+    0)
+	;;
+    1)
+	enablerecording=true
+	echo "recording data to $logdir/cputemp.csv"
+	;;
+esac
+
+if ! which sensors >/dev/null 2>&1; then
+    echo "could not find lm-sensors in the path, attempting to install"
+    osname=$(grep -E '^ID=' /etc/os-release | awk -F\= '{print $2}' | sed -e 's@"@@g')
+    case $osname in
+	centos)
+	    sudo yum install -y lm_sensors
+	    ;;
+	linuxmint)
+	    sudo apt-get install lm-sensors
+	    ;;
+    esac
+fi
+
+if [[ $enablerecording ]]; then
+    ensure_dir $logdir
+    [[ -f $logdir/cputemp.csv ]] && mv $logdir/cputemp.csv $logdir/cputemp.csv.0
+fi
+while true; do
+    sensors -A > /tmp/cputemp.$$
+    if [[ $enablerecording ]]; then
+	# adding csv header
+	if [[ ! -f $logdir/cputemp.csv ]]; then
+	    echo "Date;"$(grep -v -E 'coretemp|acpi|^$' /tmp/cputemp.$$ | cut -d: -f1 | tr -d " " \
+			      | sed -e 's@$@$;@g' | tr -d "\n") >> $logdir/cputemp.csv
+	fi
+	echo $(date)";"$(grep -v -E 'coretemp|acpi|^$' /tmp/cputemp.$$ | cut -d: -f2 | awk '{print $1}' \
+			     | sed -e 's@[+°C]*@@g' | tr "\n" ";")  >> $logdir/cputemp.csv
+    fi
+    date
+    cat /tmp/cputemp.$$
+    sleep 15
+done

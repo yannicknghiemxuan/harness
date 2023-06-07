@@ -1,0 +1,5 @@
+podnet_cidr="172.1.0.0/16"
+service_cidr="172.2.0.0/24"
+advertise_addr="11.1.0.1"
+myhostname=controlnode.irishgalaxy.com
+myhosttype=controlnode

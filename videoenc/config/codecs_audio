@@ -1,0 +1,12 @@
+#code;supported by WE black
+aac;false
+ac3;true
+adpcm_ms;false
+cook;false
+dca;false
+mp2;true
+mp3;true
+pcm_s16le;true
+pcm_u8;false
+vorbis;true
+wmav2;false

@@ -1,0 +1,51 @@
+# groupinstall
+grp_list="Server;Development Tools"
+
+# dnf
+pkg_cli="zsh tmux emacs-nox vim tree dialog"
+pkg_tools="expect"
+pkg_arch="p7zip p7zip-plugins zip unzip"
+pkg_dev="yamllint"
+pkg_system="openssh-server sysstat psmisc htop iftop nmon hwinfo redhat-lsb-core uuid dosfstools"
+pkg_security="setools-console"
+pkg_hw="rasdaemon"
+pkg_fs="gparted lvm2"
+pkg_vnc="tigervnc tigervnc-server"
+pkg_net="mdns-scan wget curl wireshark nmap ipv6calc net-tools rsync bind-utils"
+pkg_netshare="filezilla transmission-qt samba"
+pkg_python="python3 python3-pip"
+pkg_x11tools="terminator xterm"
+pkg_imagetool="perl-Image-ExifTool GraphicsMagick"
+pkg_srccontrol="git meld"
+pkg_crypto="pass gpg"
+# aptitude packages to remove
+pkg_rm="vino xed cloud-initramfs-copymods ubuntu-server"
+
+
+# pre-install commands
+# openzfs: https://openzfs.github.io/openzfs-docs/Getting%20Started/RHEL%20and%20CentOS.html#testing-repositories
+pre_install_cmd()
+{
+   . /etc/os-release
+   #dist=$(echo $VERSION_ID | sed -e 's@\.@_@')
+   dist=8_5
+   sudo dnf install -y https://zfsonlinux.org/epel/zfs-release.el${dist}.noarch.rpm
+   gpg --import --import-options show-only /etc/pki/rpm-gpg/RPM-GPG-KEY-zfsonlinux
+   sudo dnf install -y epel-release
+   sudo dnf install -y kernel-devel zfs
+   sudo dnf config-manager --disable zfs
+   sudo dnf config-manager --enable zfs-kmod
+   sudo dnf install -y zfs
+   sudo sh -c 'echo zfs >/etc/modules-load.d/zfs.conf'
+}
+
+
+# post-install commands
+post_install_cmd()
+{
+   sudo systemctl enable --now rasdaemon.service
+   # commented out because of this error:
+   # Failed to start Initialize EDAC v3.0.0 Drivers For Machine Hardware.
+   # seems to be linked to SELinux
+   # sudo systemctl enable --now ras-mc-ctl.service
+}

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+kubectl run myubuntu --rm -i --tty --image ubuntu:20.04 -n "$1" -- bash

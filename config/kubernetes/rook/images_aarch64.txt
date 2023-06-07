@@ -1,0 +1,12 @@
+# raspbernetes/ceph-csi:v3.1.0@cephcsi:active
+# raspbernetes/csi-node-driver-registrar:2.0.1@csi-node-driver-registrar:active
+# raspbernetes/csi-external-resizer:1.0.0@csi-resizer:active
+# raspbernetes/csi-external-provisioner:2.0.2@csi-provisioner:active
+# raspbernetes/csi-external-snapshotter:3.0.0@csi-snapshotter:active
+# raspbernetes/csi-external-attacher:3.0.0@csi-attacher:active
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_ceph-csi_v3.1.0.docker@
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_csi-node-driver-registrar_2.0.1.docker@
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_csi-external-resizer_june2020.docker@
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_csi-external-provisioner_june2020.docker@
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_csi-external-snapshotter_3.0.0.docker@
+ssh://cygnus/zdata/kubernetes/images/raspbernetes_csi-external-attacher_june2020.docker@

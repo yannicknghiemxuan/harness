@@ -1,0 +1,59 @@
+# notification functions
+SOURCED_NOTIFY=yes
+
+[[ ${SOURCED_IDENTIFY_OS-} != yes ]] && . $AUTOROOT/harness/modules/identify_OS || true
+
+harness_icon=$AUTOROOT/harness/icons/harness.png
+
+# send a notification on user's desktop and
+# stores it on the fileystem
+# args:
+# - $1: category
+# - $2: message
+send_notif()
+{
+    category=$1
+    shift
+    local notiffile=$category.$(date +%Y_%m_%d_%Hh%M)
+    mkdir -p $AUTOROOT/log/notifications/ || true
+    echo "$*" > $AUTOROOT/log/notifications/$notiffile
+    case $OS_TYPE in
+	Linux)
+	    if [[ $ID == ubuntu ]] || [[ $ID_LIKE =~ ubuntu.* ]]; then
+		for theuser in $(who | awk '{print $1}' | sort -u); do
+		    for tgtdisplay in \
+			$(ls /tmp/.X11-unix | tr 'X' ':'); do
+			DISPLAY=$tgtdisplay sudo -u $theuser notify-send \
+			       -u critical \
+			       -i $harness_icon \
+			       -t 0 \
+			       "Harness: $category
+$*"
+		    done
+		done
+	    fi
+	    ;;
+	Darwin)
+	    osascript -e "tell app \"System Events\" to display dialog \"Harness: $category:
+$*\"" >/dev/null 2>&1 || true
+	    ;;
+    esac
+}
+
+# send a notification on user's desktop and
+# stores it on the fileystem
+# args:
+# - $1: category
+# - $2: info file
+# - $3+: message
+send_notif_and_file()
+{
+    local fname=$1.$(date +%Y_%m_%d_%Hh%M).details
+    local category=$1
+    shift
+    local infofile=$1
+    shift
+    send_notif $category "$*
+Details file: $AUTOROOT/log/notifications/$fname"
+    sudo mv $infofile $AUTOROOT/log/notifications/$fname
+}

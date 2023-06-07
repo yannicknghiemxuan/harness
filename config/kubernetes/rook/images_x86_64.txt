@@ -1,0 +1,6 @@
+quay.io/cephcsi/cephcsi:v3.0.0@cephcsi:active
+quay.io/k8scsi/csi-node-driver-registrar:v1.2.0@csi-node-driver-registrar:active
+quay.io/k8scsi/csi-resizer:v0.4.0@csi-resizer:active
+quay.io/k8scsi/csi-provisioner:v1.6.0@csi-provisioner:active
+quay.io/k8scsi/csi-snapshotter:v2.1.1@csi-snapshotter:active
+quay.io/k8scsi/csi-attacher:v2.1.0@csi-attacher:active
