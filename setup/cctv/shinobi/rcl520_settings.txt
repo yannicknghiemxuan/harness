@@ -1,0 +1,31 @@
+source:
+- https://hub.shinobi.video/articles/view/PHPllc46JMDm83W
+
+Identity
+mode: record
+name: webcam01
+
+Connection:
+input type: h264
+automatic: yes
+full url path:
+  for constant bit rate: (recommended, no smearing)
+    rtmp://admin:@webcam01/bcs/channel0_main.bcs?token=sdasdasd&channel=0&stream=0&user=admin&password=
+  for variable bit rate:
+    rtsp://admin:@webcam01/
+ONVIF compliant: Yes
+
+Input:
+Monitor Capture Rate: 15
+
+Steam:
+Steam type: HLS
+Video Codec: copy
+Audio Codec: copy
+
+Recording:
+record file type: mp4
+video codec: copy
+audio codec: copy
+
+note: if the CPU utilisation is very high, check that recording -> audio & video codec are in copy, otherwise there will be a lot of post-processing

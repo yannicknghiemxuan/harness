@@ -1,0 +1,20 @@
+version: "3"
+services:
+    shinobi:
+        # image: shinobisystems/shinobi:dev
+        image: registry.gitlab.com/shinobi-systems/shinobi:dev
+        container_name: Shinobi
+        environment:
+           - PLUGIN_KEYS=
+           - SSL_ENABLED=false
+        volumes:
+           - /shinobi/config:/config
+           - /shinobi/customAutoLoad:/home/Shinobi/libs/customAutoLoad
+           - /shinobi/database:/var/lib/mysql
+           - /shinobi/videos:/home/Shinobi/videos
+           - /shinobi/plugins:/home/Shinobi/plugins
+           - /dev/shm/Shinobi/streams:/dev/shm/streams
+           - /etc/localtime:/etc/localtime:ro
+        ports:
+           - 8080:8080
+        restart: unless-stopped
